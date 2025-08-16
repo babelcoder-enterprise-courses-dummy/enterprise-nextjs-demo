@@ -14,7 +14,7 @@ interface Order {
 }
 
 const config: ConfigInFile = {
-  port: 3000,
+  port: 3210,
   dataDir: "./api/data",
   mapPaths: [
     {
