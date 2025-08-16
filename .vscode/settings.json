@@ -1,0 +1,18 @@
+{
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript][typescriptreact][javascript][javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always",
+      "source.organizeImports": "always"
+    },
+    "editor.formatOnSave": false
+  },
+  "eslint.validate": ["javascript", "typescript"],
+  "rest-client.rememberCookiesForSubsequentRequests": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "files.eol": "\n"
+}

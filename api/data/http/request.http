@@ -1,0 +1,176 @@
+### AUTH ###
+###
+POST {{$dotenv apiUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "myname@gmail.com",
+  "password": "mypassword"
+}
+
+###
+POST {{$dotenv apiUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "myname@gmail.com",
+  "password": "mypassword"
+}
+
+
+###
+PATCH {{$dotenv apiUrl}}/auth/refresh-token
+Content-Type: application/json
+Cookie: refreshToken={{$dotenv refreshToken}};
+
+
+###
+DELETE {{$dotenv apiUrl}}/auth/logout
+Content-Type: application/json
+Cookie: accessToken={{$dotenv accessToken}};
+
+
+###
+GET {{$dotenv apiUrl}}/auth/profile
+Content-Type: application/json
+Cookie: accessToken={{$dotenv accessToken}};
+
+
+###
+PUT {{$dotenv apiUrl}}/auth/profile
+Cookie: accessToken={{$dotenv accessToken}};
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="name"
+
+My Name
+--boundary123
+Content-Disposition: form-data; name="email"
+
+myname@gmail.com
+--boundary123
+Content-Disposition: form-data; name="password"
+
+passworD
+--boundary123
+Content-Disposition: form-data; name="avatar"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< ./data/image.jpg
+--boundary123--
+
+###
+DELETE {{$dotenv apiUrl}}/auth/profile
+Cookie: accessToken={{$dotenv accessToken}};
+
+### Products ###
+GET {{$dotenv apiUrl}}/products
+
+###
+GET {{$dotenv apiUrl}}/products/1
+
+###
+POST {{$dotenv apiUrl}}/admin/products
+Cookie: accessToken={{$dotenv accessToken}};
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="name"
+
+My Product
+--boundary123
+Content-Disposition: form-data; name="price"
+
+55
+--boundary123
+Content-Disposition: form-data; name="image"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< ./data/image.jpg
+--boundary123--
+
+###
+PATCH {{$dotenv apiUrl}}/admin/products/6
+Cookie: accessToken={{$dotenv accessToken}};
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="name"
+
+My Product
+--boundary123
+Content-Disposition: form-data; name="price"
+
+55
+--boundary123--
+
+###
+DELETE {{$dotenv apiUrl}}/admin/products/6
+Cookie: accessToken={{$dotenv accessToken}};
+
+### Orders ###
+###
+GET {{$dotenv apiUrl}}/orders
+Cookie: accessToken={{$dotenv accessToken}};
+
+###
+GET {{$dotenv apiUrl}}/orders/1
+Cookie: accessToken={{$dotenv accessToken}};
+
+###
+POST {{$dotenv apiUrl}}/orders
+Cookie: accessToken={{$dotenv accessToken}};
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 2,
+      "quantity": 10
+    }
+  ]
+}
+
+###
+GET {{$dotenv apiUrl}}/admin/users
+Cookie: accessToken={{$dotenv accessToken}};
+
+###
+GET {{$dotenv apiUrl}}/admin/users/1
+Cookie: accessToken={{$dotenv accessToken}};
+
+### Products ###
+###
+GET {{$dotenv apiUrl}}/products
+
+### Orders ###
+###
+POST {{$dotenv apiUrl}}/orders
+Content-Type: application/json
+Cookie: accessToken={{$dotenv accessToken}};
+
+{
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 2,
+      "quantity": 10
+    }
+  ]
+}
+
+###
+GET {{$dotenv apiUrl}}/orders
+Cookie: accessToken={{$dotenv accessToken}};
+
+###
+GET {{$dotenv apiUrl}}/orders/1
+Cookie: accessToken={{$dotenv accessToken}};
