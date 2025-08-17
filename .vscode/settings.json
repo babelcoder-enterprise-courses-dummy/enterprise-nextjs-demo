@@ -9,7 +9,12 @@
     },
     "editor.formatOnSave": false
   },
-  "eslint.validate": ["javascript", "typescript"],
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact"
+  ],
   "rest-client.rememberCookiesForSubsequentRequests": false,
   "files.associations": {
     "*.css": "tailwindcss"

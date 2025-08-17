@@ -1,6 +1,6 @@
 import type { ConfigInFile } from "@babelcoder/restmock";
 
-interface Order {
+interface Order extends Record<string, unknown> {
   id: number;
   userId: number;
   totalPrice: number;
@@ -39,18 +39,6 @@ const config: ConfigInFile = {
       actions: ["create", "read"],
     },
   ],
-  extraRoutes: [
-    {
-      method: "GET",
-      path: "/orders",
-      handler: (req, res, db) => {
-        const orders = db
-          .getItems("orders")
-          .filter((order) => order.userId === req.user!.id);
-        res.status(200).json(orders);
-      },
-    },
-  ],
   middleware: [
     [
       "auth",
@@ -76,6 +64,7 @@ const config: ConfigInFile = {
           { method: "GET", path: "/admin/orders" },
           { method: "GET", path: "/admin/orders/:id" },
         ],
+        filterRecordsForUser: [{ method: "GET", path: "/orders" }],
       },
     ],
     [
@@ -134,7 +123,7 @@ const config: ConfigInFile = {
         method: "POST",
         path: "/orders",
         handler: (req, _res, record, { db }) => {
-          const order = record as unknown as Order;
+          const order = record as Order;
           order.userId = req.user!.id;
           order.totalPrice = 0;
 
@@ -150,6 +139,7 @@ const config: ConfigInFile = {
           }
 
           order.totalPrice = Number(order.totalPrice.toFixed(2));
+          return order;
         },
       },
     ],

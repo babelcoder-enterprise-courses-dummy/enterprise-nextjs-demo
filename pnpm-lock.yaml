@@ -19,8 +19,8 @@ importers:
         version: 19.1.0(react@19.1.0)
     devDependencies:
       '@babelcoder/restmock':
-        specifier: ^0.1.15
-        version: 0.1.15(rolldown@1.0.0-beta.32)(typescript@5.9.2)
+        specifier: ^0.1.18
+        version: 0.1.18(rolldown@1.0.0-beta.32)(typescript@5.9.2)
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
@@ -82,8 +82,8 @@ packages:
     resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babelcoder/restmock@0.1.15':
-    resolution: {integrity: sha512-v6JlgiGFw47G9mAi7NEgo+WeMzO78T5MF5gOsPkFQ3P0STXeCbBpYCLLyjSjNB/K89OMlBq1upxYUB8bY4mk5Q==}
+  '@babelcoder/restmock@0.1.18':
+    resolution: {integrity: sha512-EohaJyiq6jYMWeI0O3Eueq1dhMG09ye+Xdsn8BpL434v4KnAIoPw4vZWGBDBHTKzwIoXgSY6tZWNHNRooObhOw==}
     hasBin: true
 
   '@casl/ability@6.7.3':
@@ -2343,7 +2343,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@babelcoder/restmock@0.1.15(rolldown@1.0.0-beta.32)(typescript@5.9.2)':
+  '@babelcoder/restmock@0.1.18(rolldown@1.0.0-beta.32)(typescript@5.9.2)':
     dependencies:
       '@casl/ability': 6.7.3
       '@faker-js/faker': 9.9.0
