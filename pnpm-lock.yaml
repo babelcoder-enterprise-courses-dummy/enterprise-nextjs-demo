@@ -19,8 +19,8 @@ importers:
         version: 19.1.0(react@19.1.0)
     devDependencies:
       '@babelcoder/restmock':
-        specifier: ^0.1.18
-        version: 0.1.18(rolldown@1.0.0-beta.32)(typescript@5.9.2)
+        specifier: ^0.1.21
+        version: 0.1.21(rolldown@1.0.0-beta.32)(typescript@5.9.2)
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
@@ -82,8 +82,8 @@ packages:
     resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babelcoder/restmock@0.1.18':
-    resolution: {integrity: sha512-EohaJyiq6jYMWeI0O3Eueq1dhMG09ye+Xdsn8BpL434v4KnAIoPw4vZWGBDBHTKzwIoXgSY6tZWNHNRooObhOw==}
+  '@babelcoder/restmock@0.1.21':
+    resolution: {integrity: sha512-tY09baav/0gx8WPAqm+D+aoIq4kC3+3qE/8wVkbqOqBe0fOeRrYyldoVipoOH4KDxQkjaZJFlThhApP9jVs9Ew==}
     hasBin: true
 
   '@casl/ability@6.7.3':
@@ -953,6 +953,10 @@ packages:
   cookie@0.7.2:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
+
+  cors@2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2343,13 +2347,14 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@babelcoder/restmock@0.1.18(rolldown@1.0.0-beta.32)(typescript@5.9.2)':
+  '@babelcoder/restmock@0.1.21(rolldown@1.0.0-beta.32)(typescript@5.9.2)':
     dependencies:
       '@casl/ability': 6.7.3
       '@faker-js/faker': 9.9.0
       bcryptjs: 3.0.2
       commander: 14.0.0
       cookie-parser: 1.4.7
+      cors: 2.8.5
       express: 5.1.0
       jsonwebtoken: 9.0.2
       lodash-es: 4.17.21
@@ -3167,6 +3172,11 @@ snapshots:
   cookie-signature@1.2.2: {}
 
   cookie@0.7.2: {}
+
+  cors@2.8.5:
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
 
   cross-spawn@7.0.6:
     dependencies:

@@ -15,7 +15,7 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@babelcoder/restmock": "^0.1.18",
+    "@babelcoder/restmock": "^0.1.21",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
