@@ -1,6 +1,6 @@
 "use client";
 
-import UserList from "@/components/users/UserList";
+import UserList from "@/components/users/admin/UserList";
 import { Paging } from "@/models/pagination";
 import * as types from "@/models/users";
 import { useSearchParams } from "next/navigation";

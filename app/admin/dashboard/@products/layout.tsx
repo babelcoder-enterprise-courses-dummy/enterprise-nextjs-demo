@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -9,7 +10,9 @@ const AdminDashboardProducts = ({ children }: AdminDashboardProducts) => {
   return (
     <div>
       <header>
-        <Link href="/admin/dashboard/summary">Summary</Link>
+        <Button variant="ghost" asChild>
+          <Link href="/admin/dashboard/summary">Summary</Link>
+        </Button>
       </header>
       {children}
     </div>

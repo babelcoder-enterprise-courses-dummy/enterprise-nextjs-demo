@@ -12,9 +12,9 @@ const DashboardLayout = ({
   users,
 }: DashboardLayoutProps) => {
   return (
-    <div>
-      {products}
-      {users}
+    <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex-1">{products}</div>
+      <div className="flex-1">{users}</div>
       {children}
     </div>
   );
