@@ -11,20 +11,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useGetProfile, useUpdateProfile } from "@/hooks/queries/auth";
 import { User } from "@/models/users";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEventHandler, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const Schema = z.object({
   name: z.string(),
   email: z.email(),
   password: z.string().min(8).optional(),
-  role: z.enum(["user", "admin"]),
   avatar: z
     .instanceof(File)
     .refine(
@@ -38,28 +39,20 @@ const Schema = z.object({
     .optional(),
 });
 
-const AuthForm = () => {
-  const profile: User = {
-    id: 1,
-    name: "John Doe",
-    email: "john@doe.com",
-    role: "user",
-    avatar: "https://picsum.photos/seed/SXWEK/3890/2785",
-  };
+interface InnerProfileFormProps {
+  profile: User;
+  onSubmit: (data: z.infer<typeof Schema>) => void;
+}
 
+const InnerProfileForm = ({ profile, onSubmit }: InnerProfileFormProps) => {
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      name: profile.name,
+      name: profile.name ?? "",
       email: profile.email,
-      role: profile.role,
     },
   });
   const [image, setImage] = useState(profile.avatar);
-
-  const onSubmit = (data: z.infer<typeof Schema>) => {
-    console.log(data);
-  };
 
   const previewImage = (image: string) => {
     setImage(image);
@@ -103,9 +96,9 @@ const AuthForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="john@doe.com" {...field} />
+                  <Input placeholder="Awesome Name" {...field} />
                 </FormControl>
-                <FormDescription>Your email address</FormDescription>
+                <FormDescription>Your awesome name</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -120,36 +113,6 @@ const AuthForm = () => {
                   <Input type="email" placeholder="john@doe.com" {...field} />
                 </FormControl>
                 <FormDescription>Your email address</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="role"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Role</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue="user"
-                    className="flex flex-col"
-                  >
-                    <FormItem className="flex items-center gap-3">
-                      <FormControl>
-                        <RadioGroupItem value="user" />
-                      </FormControl>
-                      <FormLabel className="font-normal">User</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center gap-3">
-                      <FormControl>
-                        <RadioGroupItem value="admin" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Admin</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -181,4 +144,21 @@ const AuthForm = () => {
   );
 };
 
-export default AuthForm;
+const ProfileForm = () => {
+  const { data: profile } = useGetProfile();
+  const { mutateAsync: updateProfile } = useUpdateProfile();
+  const router = useRouter();
+
+  return (
+    <InnerProfileForm
+      profile={profile!}
+      onSubmit={async (form) => {
+        await updateProfile(form);
+        toast.success("Profile updated successfully!");
+        router.push("/");
+      }}
+    />
+  );
+};
+
+export default ProfileForm;

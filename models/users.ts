@@ -2,7 +2,7 @@ import { Paging } from "./pagination";
 
 export interface User {
   id: number;
-  name: string;
+  name?: string;
   email: string;
   role: "user" | "admin";
   avatar?: string;

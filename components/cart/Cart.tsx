@@ -2,7 +2,7 @@
 
 import { useCreateOrder } from "@/hooks/queries/orders";
 import useCart from "@/stores/cart";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import ProductDetails from "../products/ProductDetails";
@@ -18,12 +18,13 @@ const Cart = () => {
   );
   const items = Object.values(itemsState);
   const { mutateAsync: createOrder } = useCreateOrder();
+  const router = useRouter();
 
   const checkout = async () => {
     const order = await createOrder({ items });
     clearCart();
-    toast.success("Event has been created.", { position: "top-center" });
-    redirect(`/orders/${order.id}`);
+    toast.success("Order has been created.", { position: "top-center" });
+    router.push(`/orders/${order.id}`);
   };
 
   return (

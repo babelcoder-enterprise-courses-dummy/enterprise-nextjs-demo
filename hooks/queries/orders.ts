@@ -7,7 +7,7 @@ export const useGetOrder = (id: number) => {
     queryKey: ["order", id],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/orders/${id}`;
-      const res = await fetch(url);
+      const res = await fetch(url, { credentials: "include" });
 
       if (res.status === 404) throw new NotFoundError("Order Not Found");
 
@@ -26,6 +26,7 @@ export const useCreateOrder = () => {
       const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify(order),
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

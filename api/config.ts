@@ -54,19 +54,19 @@ const config: ConfigInFile = {
         refreshTokenExpiresIn: "90d",
         payloadFields: ["role"],
         enableAuthFor: [
-          // { method: "GET", path: "/admin/users" },
-          // { method: "GET", path: "/admin/users/:id" },
-          // { method: "DELETE", path: "/admin/users/:id" },
-          // { method: "GET", path: "/admin/products" },
-          // { method: "GET", path: "/admin/products/:id" },
-          // { method: "POST", path: "/admin/products" },
-          // { method: "PUT", path: "/admin/products/:id" },
-          // { method: "DELETE", path: "/admin/products/:id" },
-          // { method: "POST", path: "/orders" },
-          // { method: "GET", path: "/orders" },
-          // { method: "GET", path: "/orders/:id" },
-          // { method: "GET", path: "/admin/orders" },
-          // { method: "GET", path: "/admin/orders/:id" },
+          { method: "GET", path: "/admin/users" },
+          { method: "GET", path: "/admin/users/:id" },
+          { method: "DELETE", path: "/admin/users/:id" },
+          { method: "GET", path: "/admin/products" },
+          { method: "GET", path: "/admin/products/:id" },
+          { method: "POST", path: "/admin/products" },
+          { method: "PUT", path: "/admin/products/:id" },
+          { method: "DELETE", path: "/admin/products/:id" },
+          { method: "POST", path: "/orders" },
+          { method: "GET", path: "/orders" },
+          { method: "GET", path: "/orders/:id" },
+          { method: "GET", path: "/admin/orders" },
+          { method: "GET", path: "/admin/orders/:id" },
         ],
         filterRecordsForUser: [{ method: "GET", path: "/orders" }],
       },
@@ -128,7 +128,9 @@ const config: ConfigInFile = {
         path: "/orders",
         handler: (req, _res, record, { db }) => {
           const order = record as Order;
-          // order.userId = req.user!.id;
+          console.log("order", order);
+          console.log("req.user", req.user);
+          order.userId = req.user!.id;
           order.totalPrice = 0;
 
           for (const item of order.items) {
@@ -143,7 +145,6 @@ const config: ConfigInFile = {
           }
 
           order.totalPrice = Number(order.totalPrice.toFixed(2));
-          // order.userId = userId
           return order;
         },
       },

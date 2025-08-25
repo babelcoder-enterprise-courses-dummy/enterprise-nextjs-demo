@@ -8,7 +8,7 @@ import { Suspense } from "react";
 
 const ProductListWithFetch = () => {
   const searchParams = useSearchParams();
-  const page = searchParams.get("page") || 1;
+  const page = searchParams.get("page") || "1";
   const { data: list } = useGetAdminProducts(Number(page));
 
   if (!list) return <Placeholder />;

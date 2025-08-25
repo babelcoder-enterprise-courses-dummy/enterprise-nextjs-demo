@@ -37,7 +37,7 @@ Cookie: accessToken={{$dotenv accessToken}};
 
 
 ###
-PUT {{$dotenv apiUrl}}/auth/profile
+PATCH {{$dotenv apiUrl}}/auth/profile
 Cookie: accessToken={{$dotenv accessToken}};
 Content-Type: multipart/form-data; boundary=boundary123
 
