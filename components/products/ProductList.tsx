@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -5,17 +7,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import * as types from "@/models/products";
+import { useGetSuspenseProducts } from "@/hooks/queries/products";
 import Image from "next/image";
 import Link from "next/link";
 import Pagination from "../shared/Pagination";
 
-const ProductList = ({ items: products, paging }: types.ProductList) => {
+interface ProductListProps {
+  page: number;
+}
+
+const ProductList = ({ page }: ProductListProps) => {
+  const { data: list } = useGetSuspenseProducts(page);
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-4 text-center">All Products</h1>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
-        {products.map((product) => (
+        {list.items.map((product) => (
           <Link key={product.id} href={`/products/${product.id}`}>
             <Card>
               <CardHeader>
@@ -33,7 +41,7 @@ const ProductList = ({ items: products, paging }: types.ProductList) => {
           </Link>
         ))}
       </div>
-      <Pagination {...paging}></Pagination>
+      <Pagination {...list.paging}></Pagination>
     </>
   );
 };

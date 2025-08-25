@@ -1,15 +1,30 @@
 "use client";
 
+import { useCreateOrder } from "@/hooks/queries/orders";
 import useCart from "@/stores/cart";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import ProductDetails from "../products/ProductDetails";
 import { Button } from "../ui/button";
 
 const Cart = () => {
-  const [itemsState, totalPrice] = useCart(
-    useShallow((state) => [state.items, state.getTotalPrice()]),
+  const [itemsState, totalPrice, clearCart] = useCart(
+    useShallow((state) => [
+      state.items,
+      state.getTotalPrice(),
+      state.clearCart,
+    ]),
   );
   const items = Object.values(itemsState);
+  const { mutateAsync: createOrder } = useCreateOrder();
+
+  const checkout = async () => {
+    const order = await createOrder({ items });
+    clearCart();
+    toast.success("Event has been created.", { position: "top-center" });
+    redirect(`/orders/${order.id}`);
+  };
 
   return (
     <>
@@ -24,7 +39,7 @@ const Cart = () => {
       </div>
       <div className="flex justify-between">
         <span className="font-bold text-2xl">{totalPrice} THB</span>
-        <Button>Checkout</Button>
+        <Button onClick={() => checkout()}>Checkout</Button>
       </div>
     </>
   );

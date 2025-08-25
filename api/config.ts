@@ -5,7 +5,7 @@ interface Order extends Record<string, unknown> {
   userId: number;
   totalPrice: number;
   items: {
-    productId: number;
+    id: number;
     quantity: number;
     price: number;
     name: string;
@@ -40,7 +40,7 @@ const config: ConfigInFile = {
     {
       path: "/orders",
       collection: "orders",
-      actions: ["create", "read"],
+      actions: ["create", "list", { name: "read", delay: 5_000 }],
     },
   ],
   middleware: [
@@ -128,13 +128,13 @@ const config: ConfigInFile = {
         path: "/orders",
         handler: (req, _res, record, { db }) => {
           const order = record as Order;
-          order.userId = req.user!.id;
+          // order.userId = req.user!.id;
           order.totalPrice = 0;
 
           for (const item of order.items) {
             const product = db.getItem(
               "products",
-              item.productId,
+              item.id,
             ) as Order["items"][number];
             item.price = product.price;
             item.name = product.name;
@@ -143,6 +143,7 @@ const config: ConfigInFile = {
           }
 
           order.totalPrice = Number(order.totalPrice.toFixed(2));
+          // order.userId = userId
           return order;
         },
       },

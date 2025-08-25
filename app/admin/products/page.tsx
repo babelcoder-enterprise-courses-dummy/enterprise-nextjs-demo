@@ -1,31 +1,17 @@
 "use client";
 
 import ProductList from "@/components/products/admin/ProductList";
-import { Paging } from "@/models/pagination";
-import * as types from "@/models/products";
+import Placeholder from "@/components/shared/Placeholder";
+import { useGetAdminProducts } from "@/hooks/queries/admin/products";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 
 const ProductListWithFetch = () => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || 1;
+  const { data: list } = useGetAdminProducts(Number(page));
 
-  const [list, setList] = useState<types.ProductList>({
-    items: [],
-    paging: {} as Paging,
-  });
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/admin/products?page=${page}`;
-      const res = await fetch(url);
-      const list = (await res.json()) as types.ProductList;
-      setList(list);
-    };
-
-    fetchProducts();
-  }, [page]);
-
+  if (!list) return <Placeholder />;
   return <ProductList {...list} />;
 };
 

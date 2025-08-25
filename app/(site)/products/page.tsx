@@ -1,21 +1,25 @@
 import ProductList from "@/components/products/ProductList";
-import * as types from "@/models/products";
+import { getProductsOptions } from "@/hooks/queries/products";
+import { getQueryClient } from "@/lib/get-query-client";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface ProductListPageProps {
   searchParams: Promise<{
-    page?: number;
+    page?: string;
   }>;
 }
 
 const ProductListPage = async (params: ProductListPageProps) => {
+  const queryClient = getQueryClient();
   const searchParams = await params.searchParams;
-  const page = searchParams.page || 1;
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/products?page=${page}`;
+  const page = Number(searchParams.page || "1");
+  void queryClient.prefetchQuery(getProductsOptions(page));
 
-  const res = await fetch(url);
-  const data = await (res.json() as Promise<types.ProductList>);
-
-  return <ProductList {...data}></ProductList>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ProductList page={page}></ProductList>
+    </HydrationBoundary>
+  );
 };
 
 export default ProductListPage;
