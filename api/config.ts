@@ -50,7 +50,7 @@ const config: ConfigInFile = {
         kind: "jwt-cookies",
         accessTokenSecretKey: "secret",
         refreshTokenSecretKey: "secret",
-        accessTokenExpiresIn: "50m",
+        accessTokenExpiresIn: "5m",
         refreshTokenExpiresIn: "90d",
         payloadFields: ["role"],
         enableAuthFor: [
@@ -128,8 +128,6 @@ const config: ConfigInFile = {
         path: "/orders",
         handler: (req, _res, record, { db }) => {
           const order = record as Order;
-          console.log("order", order);
-          console.log("req.user", req.user);
           order.userId = req.user!.id;
           order.totalPrice = 0;
 

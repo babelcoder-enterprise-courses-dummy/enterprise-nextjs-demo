@@ -5,7 +5,7 @@ import Placeholder from "@/components/shared/Placeholder";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import { useGetProfile } from "@/hooks/queries/auth";
 import { useGetOrder } from "@/hooks/queries/orders";
-import { NotFoundError } from "@/lib/not-found-error";
+import { NotFoundError } from "@/lib/errors/not-found-error";
 import { notFound, redirect, useParams } from "next/navigation";
 
 const InnerOrderDetailsPage = () => {

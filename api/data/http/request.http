@@ -137,7 +137,7 @@ Content-Type: application/json
 }
 
 ###
-GET {{$dotenv apiUrl}}/admin/users
+GET {{$dotenv apiUrl}}/admin/users?page=1
 Cookie: accessToken={{$dotenv accessToken}};
 
 ###

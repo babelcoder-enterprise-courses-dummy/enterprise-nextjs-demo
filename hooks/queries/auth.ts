@@ -1,3 +1,4 @@
+import fetcher from "@/lib/fetcher";
 import { Credentials, ProfileForm } from "@/models/auth";
 import { User } from "@/models/users";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -8,16 +9,14 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: async (credentials: Credentials) => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/login`;
-      const res = await fetch(url, {
+      const res = await fetcher(url, {
         method: "POST",
         body: JSON.stringify(credentials),
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (!res.ok) throw new Error("Invalid Credentials");
       return res;
     },
     onSuccess: () => {
@@ -30,7 +29,7 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: (credentials: Credentials) => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/register`;
-      return fetch(url, {
+      return fetcher(url, {
         method: "POST",
         body: JSON.stringify(credentials),
         headers: {
@@ -47,9 +46,7 @@ export const useGetProfile = () => {
     queryKey: ["profile"],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`;
-      const res = await fetch(url, { credentials: "include" });
-
-      if (!res.ok) throw new Error("Unauthorized");
+      const res = await fetcher(url);
 
       const profile = (await res.json()) as User;
       return profile;
@@ -62,9 +59,8 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`;
-      return fetch(url, {
+      return fetcher(url, {
         method: "DELETE",
-        credentials: "include",
       });
     },
     onSuccess: () => {
@@ -79,10 +75,9 @@ export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: (profile: ProfileForm) => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`;
-      return fetch(url, {
+      return fetcher(url, {
         method: "PATCH",
         body: JSON.stringify(profile),
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

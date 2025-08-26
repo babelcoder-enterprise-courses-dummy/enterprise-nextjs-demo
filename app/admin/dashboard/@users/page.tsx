@@ -1,13 +1,14 @@
+"use client";
+
+import Placeholder from "@/components/shared/Placeholder";
 import LatestUserList from "@/components/users/admin/LatestUserList";
-import { UserList } from "@/models/users";
+import { useGetAdminUsers } from "@/hooks/queries/admin/users";
 
-const UserListPage = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/admin/users?limit=10`,
-  );
-  const { items: users } = await (res.json() as Promise<UserList>);
+const UserListPage = () => {
+  const { data: list } = useGetAdminUsers();
 
-  return <LatestUserList items={users} />;
+  if (!list) return <Placeholder />;
+  return <LatestUserList items={list.items} />;
 };
 
 export default UserListPage;

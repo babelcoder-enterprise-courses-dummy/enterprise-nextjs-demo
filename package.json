@@ -39,7 +39,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@babelcoder/restmock": "^0.1.25",
+    "@babelcoder/restmock": "^0.1.26",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@tanstack/eslint-plugin-query": "^5.83.1",

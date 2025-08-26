@@ -1,12 +1,14 @@
 "use client";
 
 import { useLogin } from "@/hooks/queries/auth";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import AuthForm from "./AuthForm";
 
 const Login = () => {
   const { mutateAsync: login } = useLogin();
+  const router = useRouter();
+
   return (
     <AuthForm
       title="Login"
@@ -19,7 +21,7 @@ const Login = () => {
         }
 
         toast.success("Welcome back!");
-        redirect("/");
+        router.push("/");
       }}
     />
   );
