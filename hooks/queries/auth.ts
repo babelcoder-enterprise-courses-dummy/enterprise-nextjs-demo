@@ -75,12 +75,15 @@ export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: (profile: ProfileForm) => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`;
+      const formData = new FormData();
+      if (profile.name) formData.append("name", profile.name);
+      if (profile.email) formData.append("email", profile.email);
+      if (profile.password) formData.append("password", profile.password);
+      if (profile.avatar) formData.append("avatar", profile.avatar);
+
       return fetcher(url, {
         method: "PATCH",
-        body: JSON.stringify(profile),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: formData,
       });
     },
     onSuccess: () => {

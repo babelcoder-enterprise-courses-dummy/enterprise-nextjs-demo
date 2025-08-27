@@ -15,6 +15,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { useGetProfile, useLogout } from "@/hooks/queries/auth";
+import { getAvatarUrl } from "@/lib/profile";
 import { cn } from "@/lib/utils";
 import useCart from "@/stores/cart";
 import { ShoppingCart } from "lucide-react";
@@ -100,7 +101,7 @@ const AppMenuBar = () => {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
-              <AvatarImage src={profile.avatar} />
+              <AvatarImage src={getAvatarUrl(profile.avatar)} />
               <AvatarFallback>
                 {(profile.name ?? profile.email).slice(0, 2)}
               </AvatarFallback>

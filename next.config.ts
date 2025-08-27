@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   typedRoutes: true,
+  output: "standalone",
   async redirects() {
     return [
       {
@@ -18,6 +19,9 @@ const nextConfig: NextConfig = {
       },
       {
         hostname: "loremflickr.com",
+      },
+      {
+        hostname: "localhost",
       },
     ],
   },
