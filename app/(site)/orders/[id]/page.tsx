@@ -22,6 +22,9 @@ const InnerOrderDetailsPage = () => {
 const OrderDetailsPage = () => {
   return (
     <ProtectedRoute>
+      <head>
+        <title>My Order</title>
+      </head>
       <InnerOrderDetailsPage></InnerOrderDetailsPage>
     </ProtectedRoute>
   );

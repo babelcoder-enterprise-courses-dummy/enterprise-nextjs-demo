@@ -2,6 +2,11 @@ import ProductList from "@/components/products/ProductList";
 import { getProductsOptions } from "@/hooks/queries/products";
 import { getQueryClient } from "@/lib/get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "All Products",
+};
 
 interface ProductListPageProps {
   searchParams: Promise<{
